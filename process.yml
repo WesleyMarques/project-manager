@@ -1,0 +1,6 @@
+apps:
+  - script   : './build/config/server/index.js'
+    name     : 'complains-app'
+    exec_mode: "cluster"
+    instances: "max"
+    kill_timeout: 300000
