@@ -1,10 +1,13 @@
 {
+    "compileOnSave": false,
     "compilerOptions": {
         "outDir": "./build/",
         "module": "commonjs",
         "noImplicitAny": true,
-        "target": "es6",
-        "sourceMap": false,
+        "target": "es2017",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "typeRoots": ["node_modules/@types", "sequelize/types"],
         "plugins": [
             {
                 "name": "tslint-language-service"

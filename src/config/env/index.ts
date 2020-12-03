@@ -5,6 +5,8 @@ dotenv.config();
 interface IConfig {
     port: string | number;
     database: {
+        POSTGRESDB_URI: string;
+        POSTGRESDB_NAME: string;
     };
     secret: string;
 }
@@ -14,6 +16,7 @@ const NODE_ENV: string = process.env.NODE_ENV || 'development';
 const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
+
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
