@@ -1,6 +1,5 @@
-import * as express from 'express';
 import * as Middleware from '../middleware/middleware';
-import { Application } from 'express';
+import express, { Application } from 'express';
 import * as http from 'http';
 import * as os from 'os';
 import * as bodyParser from 'body-parser';
@@ -17,9 +16,9 @@ export default class ExpressServer {
     Middleware.initErrorHandler(this.app);
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(compression());
-    this.app.use(helmet());
-    this.app.use(cors());
+    this.app.use(compression.default());
+    this.app.use(helmet.default());
+    this.app.use(cors.default());
   }
 
   router(routes: (app: Application) => void): ExpressServer {

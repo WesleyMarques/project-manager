@@ -1,5 +1,5 @@
 import * as Joi from 'joi';
-import { Types } from 'mongoose';
+import { types } from 'util';
 
 /**
  * @export
@@ -32,15 +32,6 @@ abstract class Validation {
                 state: Joi.State,
                 options: Joi.ValidationOptions
             ): Object | string {
-                if (!Types.ObjectId.isValid(value)) {
-                    return this.createError(
-                        'objectId.base', {
-                            value
-                        },
-                        state,
-                        options
-                    );
-                }
 
                 return value; // Keep the value as it was
             }

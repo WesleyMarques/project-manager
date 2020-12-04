@@ -13,6 +13,6 @@ COPY ./ /usr/src/app
 
 RUN npm install -g pm2
 RUN pm2 update
-#RUN yarn install --production=true
+RUN yarn install --production=true
 
-CMD [ "npm", "run", "prod" ]
+CMD [ "npm", "start" ]

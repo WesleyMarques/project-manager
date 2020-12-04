@@ -92,3 +92,8 @@ const Project_Tag = db.define("project_tag", {}, { timestamps: false });
 
 Project.belongsToMany(Tag, { through: Project_Tag })
 Tag.belongsToMany(Project, { through: Project_Tag })
+
+
+Project.sync({ alter: true })
+Tag.sync({ alter: true })
+Project_Tag.sync({ alter: true })

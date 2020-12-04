@@ -1,16 +1,13 @@
 import {
     Model,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    HasManyHasAssociationMixin,
-    Association,
-    HasManyCountAssociationsMixin,
-    HasManyCreateAssociationMixin,
     Optional,
     DataTypes,
 } from "sequelize";
+import * as bcrypt from "bcrypt";
 import Project from '../project';
-import { db } from '../../config/connection/connection'
+import { db } from '../../config/connection/connection';
+import { boolean } from "joi";
+
 
 /**
  * @export
@@ -20,6 +17,7 @@ export interface IUser {
     id: number;
     name: string;
     email: string;
+    password: string;
 }
 
 interface IUserCreationAttributes extends Optional<IUser, "id"> { }
@@ -28,9 +26,14 @@ export class User extends Model<IUser, IUserCreationAttributes> implements IUser
     public id: number;
     public name: string;
     public email: string;
+    public password: string;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    validPassword(password: string): boolean {
+        return bcrypt.compareSync(password, this.password);
+      }
 }
 
 User.init(
@@ -45,10 +48,21 @@ User.init(
         email: {
             type: DataTypes.STRING,
         },
-    },{
-        sequelize: db,
-        tableName: "user"
-    }
+        password: {
+            type: DataTypes.STRING,
+        },
+    }, {
+    sequelize: db,
+    tableName: "user",
+    hooks: {
+        beforeCreate: (user) => {
+            const salt = bcrypt.genSaltSync();
+            user.password = bcrypt.hashSync(user.password, salt);
+        }
+    }  
+}
 );
 
 User.hasMany(Project, { foreignKey: 'ownerId', sourceKey: 'id' });
+
+User.sync({ alter: true })

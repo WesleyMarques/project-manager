@@ -1,4 +1,3 @@
-import * as debug from 'debug';
 import { Address } from 'cluster';
 
 /**
@@ -36,5 +35,5 @@ export function onListening(): void {
     const addr: Address = this.address();
     const bind: string = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
 
-    debug(`Listening on ${bind}`);
+    console.debug(`Listening on ${bind}`);
 }

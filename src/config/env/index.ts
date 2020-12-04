@@ -16,7 +16,8 @@ const NODE_ENV: string = process.env.NODE_ENV || 'development';
 const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
-
+        POSTGRESDB_URI : process.env.DB_HOST,
+        POSTGRESDB_NAME: process.env.DB_NAME
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
@@ -24,13 +25,18 @@ const development: IConfig = {
 const production: IConfig = {
     port: process.env.PORT || 3000,
     database: {
+        POSTGRESDB_URI : process.env.DB_HOST,
+        POSTGRESDB_NAME: process.env.DB_NAME
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
 
 const test: IConfig = {
     port: process.env.PORT || 3000,
-    database: {},
+    database: {
+        POSTGRESDB_URI : process.env.DB_HOST,
+        POSTGRESDB_NAME: process.env.DB_NAME
+    },
     secret: process.env.SECRET || '@QEGTUI'
 };
 

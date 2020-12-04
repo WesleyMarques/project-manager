@@ -1,12 +1,57 @@
-version: '2'
+version: '3.7'
+
+networks: 
+  app-api:
+    driver: bridge
+  postgres:
+    driver: bridge
 
 services:
   server-api:
     build: .
     volumes:
-      - ./:/usr/src/app
+      - ./build:/usr/src/app
     ports:
       - "3000:3000"
-    links:
-      - mongo
+    networks: 
+      - app-api
+      - postgres
     environment:
+      NODE_ENV: development
+      DB_HOST: postgres:postgres@postgres:5432
+      DB_NAME: project_manager
+
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "15432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL:  
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "8081:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+    postgres:
+    pgadmin:
+
+    
