@@ -33,36 +33,39 @@ export class User extends Model<IUser, IUserCreationAttributes> implements IUser
 
     validPassword(password: string): boolean {
         return bcrypt.compareSync(password, this.password);
-      }
+    }
 }
 
 User.init(
     {
         id: {
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
         },
         name: {
             type: DataTypes.STRING,
         },
         email: {
             type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
         },
         password: {
             type: DataTypes.STRING,
         },
     }, {
     sequelize: db,
-    tableName: "user",
+    tableName: "user_manager",
+    freezeTableName: true,
     hooks: {
-        beforeCreate: (user) => {
+        beforeCreate: (user, options) => {
             const salt = bcrypt.genSaltSync();
             user.password = bcrypt.hashSync(user.password, salt);
         }
-    }  
+    }
 }
 );
 
 User.hasMany(Project, { foreignKey: 'ownerId', sourceKey: 'id' });
-
 User.sync({ alter: true })

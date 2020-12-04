@@ -1,23 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
-// import { User } from "./user.model";
-// import userService from './user.service'
-import * as jwt from 'jsonwebtoken'
-import config from '../../config/env';
+import authRouter from './auth.router';
+import authService from './auth.service'
 
 export class AuthController {
 
   async login(req: Request, res: Response, next: NextFunction) {
     const { username, password } = req.body;
-    console.log(username)
-
-    return res.status(200).json({
-      token: generateAccessToken(username)
-    }).end();
+    
+    try {
+      const token = await authService.authenticate(username, password)
+      console.log("AQUIIIIII succes")
+      return res.status(200).json({
+        token: token
+      }).end();
+    } catch (error) {
+      console.log("AQUIIIIII")
+      return res.status(404).json({
+        message: error
+      }).end();
+    }
   }
-}
-
-const generateAccessToken = (username: string) => {
-  return jwt.sign(username, config.secret);
 }
 
 export default new AuthController();

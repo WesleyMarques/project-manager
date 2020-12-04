@@ -3,7 +3,7 @@ import * as http from 'http';
 import * as jwt from 'jsonwebtoken'
 
 import config from '../env/index';
-import userComponent from '../../components/user';
+import * as userComponent from '../../components/user';
 import authComponent from '../../components/auth';
 import swaggerRouter from '../swagger/swagger.routes';
 
@@ -13,7 +13,8 @@ import swaggerRouter from '../swagger/swagger.routes';
  */
 export default function routes(app: Application): void {
         
-    app.use('/api/v1/user', verifyAuth, userComponent);
+    app.use('/api/v1/user', verifyAuth, userComponent.default.userAPI);
+    app.use('/api/v1/registry', userComponent.default.userRegistry);
     app.use('/api/v1/auth', authComponent);
 
     app.use('/api/v1/docs', swaggerRouter);

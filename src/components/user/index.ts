@@ -1,4 +1,6 @@
-import UserRouter from "./user.router";
+import {userAPI, userRegistry} from "./user.router";
 
 
-export default UserRouter
+export default {
+    userAPI, userRegistry
+}

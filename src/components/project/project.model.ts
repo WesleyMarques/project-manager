@@ -46,12 +46,12 @@ export class Project extends Model<IProject, IProjectCreationAttributes>
 Project.init(
     {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         ownerId: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         description: {
@@ -59,17 +59,18 @@ Project.init(
             allowNull: false,
         },
         budget: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             allowNull: false,
         }
     },
     {
         sequelize: db,
         tableName: "project",
+        freezeTableName: true,
     }
 )
 
-class Tag extends Model<ITag, ITagCreationAttributes> implements ITag {
+export class Tag extends Model<ITag, ITagCreationAttributes> implements ITag {
     public id: number;
     public name: string;
 }
@@ -85,15 +86,18 @@ Tag.init({
     },
 }, {
     sequelize: db,
-    tableName: "tag"
+    tableName: "tag",
+    freezeTableName: true,
 })
 
-const Project_Tag = db.define("project_tag", {}, { timestamps: false });
+export const Project_Tag = db.define("project_tag", {}, { timestamps: false });
+
 
 Project.belongsToMany(Tag, { through: Project_Tag })
 Tag.belongsToMany(Project, { through: Project_Tag })
 
-
-Project.sync({ alter: true })
 Tag.sync({ alter: true })
+Project.sync({ alter: true })
 Project_Tag.sync({ alter: true })
+
+

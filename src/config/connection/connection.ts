@@ -18,8 +18,6 @@ const connectOptions: IConnectOptions = {
 
 const POSTGRES_URI: string = `postgres://${config.database.POSTGRESDB_URI}/${config.database.POSTGRESDB_NAME}`;
 
-console.log(config)
-
 export const db: Sequelize = new Sequelize(POSTGRES_URI)
 
 db.authenticate().then(() => {
