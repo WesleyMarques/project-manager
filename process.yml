@@ -2,5 +2,5 @@ apps:
   - script   : './build/config/server/index.js'
     name     : 'project_manager-app'
     exec_mode: "cluster"
-    instances: "max"
+    instances: "2"
     kill_timeout: 300000
