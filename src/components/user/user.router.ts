@@ -3,11 +3,7 @@ import UserController from './user.controller';
 
 
 const userAPI = express.Router()
-    .get('/', UserController.findAll)
-    // .get('/:id', ComplainController.findById)
-    // .delete('/:id', ComplainController.remove)
-    // .put('/:id', ComplainController.replace)
-    // .patch('/:id', ComplainController.update)
+    .get('/', UserController.fetchOne)
 
 const userRegistry = express.Router()
     .post('/', UserController.create)

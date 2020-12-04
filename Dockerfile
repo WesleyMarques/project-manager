@@ -6,13 +6,13 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package.json /usr/src/app/
-RUN npm i
+COPY package-lock.json /usr/src/app/
+RUN yarn install --production=true
 
 # Bundle app source
-COPY ./ /usr/src/app
+COPY ./ /usr/src/app/
 
 RUN npm install -g pm2
 RUN pm2 update
-RUN yarn install --production=true
 
-CMD [ "npm", "start" ]
+ENTRYPOINT [ "npm", "start" ] 

@@ -19,6 +19,9 @@ export default {
         })
     },
     async fetchByEmail(emailValue: string): Promise<User> {
-        return User.findOne({ where: { email: emailValue } })
+        return User.findOne({ where: { email: emailValue },
+            attributes: {
+                exclude: ['password']
+            } })
     }
 }

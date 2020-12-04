@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     openapi: '3.0.0',
     info: {
-        title: 'Complains API',
+        title: 'Project Manager API',
         version: '1.0.0',
         description: '', 
     },

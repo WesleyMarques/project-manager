@@ -13,10 +13,9 @@ export class UserController {
     }
   }
 
-  async findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async fetchOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const users = await userService.fetchAll()
-      res.status(201).json({users: users}).end()
+      res.status(201).json(res.locals.user).end()
     } catch (error) {
       next(new HttpError(error.message.status, error.message));
     }
