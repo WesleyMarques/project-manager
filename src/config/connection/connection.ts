@@ -16,7 +16,7 @@ const connectOptions: IConnectOptions = {
     useNewUrlParser: true,
 };
 
-const POSTGRES_URI: string = process.env.NODE_ENV || `postgres://${config.database.POSTGRESDB_URI}/${config.database.POSTGRESDB_NAME}`;
+const POSTGRES_URI: string = `postgres://${config.database.POSTGRESDB_URI}/${config.database.POSTGRESDB_NAME}`;
 
 export const db: Sequelize = new Sequelize(POSTGRES_URI)
 
