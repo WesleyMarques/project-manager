@@ -23,5 +23,8 @@ export default {
             attributes: {
                 exclude: ['password']
             } })
+    },
+    async fetchByEmailLogin(emailValue: string): Promise<User> {
+        return User.findOne({ where: { email: emailValue }})
     }
 }

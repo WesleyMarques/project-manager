@@ -7,7 +7,7 @@ import config from '../../config/env';
 
 export default {
     async authenticate(username: string, password: string): Promise<string> {
-        const user: User = await userService.fetchByEmail(username)
+        const user: User = await userService.fetchByEmailLogin(username)
         return new Promise<string>((resolve, reject) => {
             if (!user.validPassword(password)) {
                 reject("User or password wrong");
