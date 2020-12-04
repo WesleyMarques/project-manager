@@ -9,12 +9,10 @@ export class AuthController {
     
     try {
       const token = await authService.authenticate(username, password)
-      console.log("AQUIIIIII succes")
       return res.status(200).json({
         token: token
       }).end();
     } catch (error) {
-      console.log("AQUIIIIII")
       return res.status(404).json({
         message: error
       }).end();

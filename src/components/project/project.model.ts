@@ -26,7 +26,7 @@ interface ITag {
 
 interface ITagCreationAttributes extends Optional<ITag, "id"> { }
 
-export class Project extends Model<IProject, IProjectCreationAttributes>
+export class Project extends Model
     implements IProject {
     public id: number;
     public ownerId: number;
@@ -36,7 +36,7 @@ export class Project extends Model<IProject, IProjectCreationAttributes>
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
 
-    public readonly tags?: Tag[]; // Note this is optional since it's only populated when explicitly requested in code
+    public readonly tags?: Tag[];
 
     public static associations: {
         projects: Association<Project, Tag>;
@@ -70,7 +70,7 @@ Project.init(
     }
 )
 
-export class Tag extends Model<ITag, ITagCreationAttributes> implements ITag {
+export class Tag extends Model {
     public id: number;
     public name: string;
 }

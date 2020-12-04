@@ -1,4 +1,4 @@
-import { Project } from "./project.model";
+import ProjectRouter from "./project.router";
 
 
-export default Project
+export default ProjectRouter

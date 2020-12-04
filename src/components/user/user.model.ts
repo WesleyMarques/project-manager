@@ -4,7 +4,7 @@ import {
     DataTypes,
 } from "sequelize";
 import * as bcrypt from "bcrypt";
-import Project from '../project';
+import { Project} from '../project/project.model';
 import { db } from '../../config/connection/connection';
 import { boolean } from "joi";
 
